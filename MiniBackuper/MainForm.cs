@@ -1,10 +1,12 @@
+using MaterialSkin.Controls;
+using Microsoft.Win32;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace MiniBackuper
 {
-    public partial class MainForm : Form
+    public partial class MainForm : MaterialForm
     {
         private System.Timers.Timer _copyTimer = new();
         private string _path;
@@ -20,8 +22,27 @@ namespace MiniBackuper
             textBoxTime.KeyDown += TextBoxTimeKeyEnter;
             textBoxCount.TextChanged += TextBoxCountTextChanged;
             textBoxCount.KeyDown += TextBoxCountKeyEnter;
-            //checkSwitchAutorun.CheckedChanged += CheckSwitchCheckedChanged;
+            checkSwitchAutorun.CheckedChanged += CheckSwitchCheckedChanged;
+            labelLogo.MouseDown += LabelLogoMouseDown;
 
+            notifyIcon.MouseDoubleClick += new MouseEventHandler(NotifyIconMouseDoubleClick);
+            this.Resize += new EventHandler(this.FormResize);
+            ReadSettings();
+        }
+        private void FormResize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                this.ShowInTaskbar = false;
+                notifyIcon.Visible = true;
+            }
+        }
+
+        private void NotifyIconMouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            notifyIcon.Visible = false;
+            this.ShowInTaskbar = true;
+            WindowState = FormWindowState.Normal;
         }
 
         private void MainFormLoad(object sender, EventArgs e)
@@ -29,12 +50,13 @@ namespace MiniBackuper
             textBoxTime.Text = $"{_time}";
             textBoxCount.Text = $"{_editLimit}";
             this.Region = new Region(RoundedRect(new Rectangle(0, 0, this.Width, this.Height), 5));
+            buttonStart.Enabled = false;
 
         }
 
         private void CheckSwitchCheckedChanged(object? sender, EventArgs e)
         {
-            if (false)
+            if (checkSwitchAutorun.Checked)
             {
                 AutorunOn();
             }
@@ -50,8 +72,10 @@ namespace MiniBackuper
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 _path = dialog.SelectedPath;
+                buttonStart.Enabled = true;
             }
         }
+
 
         private void ButtonStartBackupClick(object sender, EventArgs e)
         {
@@ -153,10 +177,24 @@ namespace MiniBackuper
             }
         }
 
+        private void ReadSettings()
+        {
+            RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", true);
+            string autorun = key.GetValue("MiniBackuper")?.ToString();
+
+            if (autorun != null)
+            {
+                checkSwitchAutorun.Checked = true;
+            }
+            else
+            {
+                checkSwitchAutorun.Checked = false;
+            }
+        }
+
         private void AutorunOn()
         {
-            Microsoft.Win32.RegistryKey Key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
-                "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", true);
+            RegistryKey Key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", true);
 
             Key.SetValue("MiniBackuper", $"{Environment.CurrentDirectory}\\MiniBackuper.exe");
             Key.Close();
@@ -164,22 +202,16 @@ namespace MiniBackuper
 
         private void AutorunOff()
         {
-            Microsoft.Win32.RegistryKey key =
-            Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
-                "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            RegistryKey key = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             key.DeleteValue("MiniBackuper", false);
             key.Close();
         }
 
-        private void PictureBoxCloseClick(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
+        private void PictureBoxCloseClick(object sender, EventArgs e) => Application.Exit();
 
-        private void MainFormMouseDown(object sender, MouseEventArgs e)
-        {
-            MoveForm();
-        }
+        private void MainFormMouseDown(object sender, MouseEventArgs e) => MoveForm();
+
+        private void LabelLogoMouseDown(object? sender, MouseEventArgs e) => MoveForm();
 
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
@@ -192,10 +224,8 @@ namespace MiniBackuper
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
-        private void PictureBoxMinClick(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-        }
+        private void PictureBoxMinClick(object sender, EventArgs e) => WindowState = FormWindowState.Minimized;
+
         public GraphicsPath RoundedRect(Rectangle baseRect, int radius)
         {
             var diameter = radius * 2;
@@ -217,5 +247,6 @@ namespace MiniBackuper
             path.CloseFigure();
             return path;
         }
+
     }
 }

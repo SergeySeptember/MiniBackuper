@@ -7,7 +7,7 @@ namespace MiniBackuper
         protected override void OnPaint(PaintEventArgs pevent)
         {
             GraphicsPath path = new GraphicsPath();
-            int arcSize = 10;
+            int arcSize = 12;
 
             path.AddArc(0, 0, arcSize, arcSize, 180, 90);
             path.AddArc(Width - arcSize, 0, arcSize, arcSize, 270, 90);
