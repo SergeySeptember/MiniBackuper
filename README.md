@@ -6,7 +6,7 @@
 
 - [About](#about)
 - [Getting Started](#getting_started)
-- [Usage](#usage)
+- [Bugs](#bugs)
 - [Authors](#authors)
 
 ## About <a name = "about"></a>
@@ -43,6 +43,10 @@ To run the application, you'll need .NET 7 Desktop Runtime.
 ## Setting Auto-Start
 
 You can configure MiniBackuper to start automatically, so the application begins monitoring changes right after system startup. Enable this option in the application settings.
+
+## Bugs <a name = "bugs"></a>
+
+A change in the content of a file counts as 2 changes.
 
 ## Dependencies
 
