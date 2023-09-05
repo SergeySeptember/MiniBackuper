@@ -35,13 +35,15 @@
             textBoxCount = new TextBox();
             label2 = new Label();
             pictureBoxClose = new PictureBox();
-            label3 = new Label();
+            labelAutorun = new Label();
             labelLogo = new Label();
             pictureBoxMin = new PictureBox();
             buttonBrowseFolder = new RoundButton();
             buttonStart = new RoundButton();
-            checkSwitchAutorun = new MaterialSkin.Controls.MaterialCheckBox();
+            checkBoxAutorun = new MaterialSkin.Controls.MaterialCheckBox();
             notifyIcon = new NotifyIcon(components);
+            checkBoxStart = new MaterialSkin.Controls.MaterialCheckBox();
+            labelStartAutorun = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxClose).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMin).BeginInit();
             SuspendLayout();
@@ -96,15 +98,15 @@
             pictureBoxClose.TabStop = false;
             pictureBoxClose.Click += PictureBoxCloseClick;
             // 
-            // label3
+            // labelAutorun
             // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Transparent;
-            label3.Location = new Point(88, 198);
-            label3.Name = "label3";
-            label3.Size = new Size(126, 15);
-            label3.TabIndex = 9;
-            label3.Text = "Autorun on OS startup";
+            labelAutorun.AutoSize = true;
+            labelAutorun.BackColor = Color.Transparent;
+            labelAutorun.Location = new Point(87, 181);
+            labelAutorun.Name = "labelAutorun";
+            labelAutorun.Size = new Size(126, 15);
+            labelAutorun.TabIndex = 9;
+            labelAutorun.Text = "Autorun on OS startup";
             // 
             // labelLogo
             // 
@@ -133,7 +135,7 @@
             // 
             // buttonBrowseFolder
             // 
-            buttonBrowseFolder.Location = new Point(32, 146);
+            buttonBrowseFolder.Location = new Point(32, 141);
             buttonBrowseFolder.Name = "buttonBrowseFolder";
             buttonBrowseFolder.Size = new Size(85, 30);
             buttonBrowseFolder.TabIndex = 0;
@@ -144,7 +146,7 @@
             // 
             // buttonStart
             // 
-            buttonStart.Location = new Point(134, 147);
+            buttonStart.Location = new Point(134, 142);
             buttonStart.Name = "buttonStart";
             buttonStart.Size = new Size(85, 30);
             buttonStart.TabIndex = 13;
@@ -152,40 +154,68 @@
             buttonStart.UseVisualStyleBackColor = true;
             buttonStart.Click += ButtonStartBackupClick;
             // 
-            // checkSwitchAutorun
+            // checkBoxAutorun
             // 
-            checkSwitchAutorun.AutoSize = true;
-            checkSwitchAutorun.BackColor = Color.Transparent;
-            checkSwitchAutorun.Depth = 0;
-            checkSwitchAutorun.Font = new Font("Roboto", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            checkSwitchAutorun.Location = new Point(51, 190);
-            checkSwitchAutorun.Margin = new Padding(0);
-            checkSwitchAutorun.MouseLocation = new Point(-1, -1);
-            checkSwitchAutorun.MouseState = MaterialSkin.MouseState.HOVER;
-            checkSwitchAutorun.Name = "checkSwitchAutorun";
-            checkSwitchAutorun.Ripple = true;
-            checkSwitchAutorun.Size = new Size(26, 30);
-            checkSwitchAutorun.TabIndex = 14;
-            checkSwitchAutorun.UseVisualStyleBackColor = false;
+            checkBoxAutorun.AutoSize = true;
+            checkBoxAutorun.BackColor = Color.Transparent;
+            checkBoxAutorun.Depth = 0;
+            checkBoxAutorun.Font = new Font("Roboto", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBoxAutorun.Location = new Point(50, 173);
+            checkBoxAutorun.Margin = new Padding(0);
+            checkBoxAutorun.MouseLocation = new Point(-1, -1);
+            checkBoxAutorun.MouseState = MaterialSkin.MouseState.HOVER;
+            checkBoxAutorun.Name = "checkBoxAutorun";
+            checkBoxAutorun.Ripple = true;
+            checkBoxAutorun.Size = new Size(26, 30);
+            checkBoxAutorun.TabIndex = 14;
+            checkBoxAutorun.UseVisualStyleBackColor = false;
             // 
             // notifyIcon
             // 
             notifyIcon.Icon = (Icon)resources.GetObject("notifyIcon.Icon");
             notifyIcon.Text = "Backuper";
             // 
+            // checkBoxStart
+            // 
+            checkBoxStart.AutoSize = true;
+            checkBoxStart.BackColor = Color.Transparent;
+            checkBoxStart.Depth = 0;
+            checkBoxStart.Font = new Font("Roboto", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBoxStart.Location = new Point(50, 200);
+            checkBoxStart.Margin = new Padding(0);
+            checkBoxStart.MouseLocation = new Point(-1, -1);
+            checkBoxStart.MouseState = MaterialSkin.MouseState.HOVER;
+            checkBoxStart.Name = "checkBoxStart";
+            checkBoxStart.Ripple = true;
+            checkBoxStart.Size = new Size(26, 30);
+            checkBoxStart.TabIndex = 15;
+            checkBoxStart.UseVisualStyleBackColor = false;
+            // 
+            // labelStartAutorun
+            // 
+            labelStartAutorun.AutoSize = true;
+            labelStartAutorun.BackColor = Color.Transparent;
+            labelStartAutorun.Location = new Point(87, 207);
+            labelStartAutorun.Name = "labelStartAutorun";
+            labelStartAutorun.Size = new Size(144, 15);
+            labelStartAutorun.TabIndex = 16;
+            labelStartAutorun.Text = "Start backup at OS startup";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(267, 239);
+            ClientSize = new Size(267, 237);
             ControlBox = false;
-            Controls.Add(checkSwitchAutorun);
+            Controls.Add(labelStartAutorun);
+            Controls.Add(checkBoxStart);
+            Controls.Add(checkBoxAutorun);
             Controls.Add(buttonStart);
             Controls.Add(buttonBrowseFolder);
             Controls.Add(pictureBoxMin);
             Controls.Add(labelLogo);
-            Controls.Add(label3);
+            Controls.Add(labelAutorun);
             Controls.Add(pictureBoxClose);
             Controls.Add(label2);
             Controls.Add(textBoxCount);
@@ -209,12 +239,14 @@
         private TextBox textBoxCount;
         private Label label2;
         private PictureBox pictureBoxClose;
-        private Label label3;
+        private Label labelAutorun;
         private Label labelLogo;
         private PictureBox pictureBoxMin;
         private RoundButton buttonBrowseFolder;
         private RoundButton buttonStart;
-        private MaterialSkin.Controls.MaterialCheckBox checkSwitchAutorun;
+        private MaterialSkin.Controls.MaterialCheckBox checkBoxAutorun;
         private NotifyIcon notifyIcon;
+        private MaterialSkin.Controls.MaterialCheckBox checkBoxStart;
+        private Label labelStartAutorun;
     }
 }
