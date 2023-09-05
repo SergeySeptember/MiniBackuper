@@ -50,6 +50,6 @@ MiniBackuper uses the following dependencies:
 
 - MaterialSkin (for the user interface)
 
-## ✍️ Authors <a name = "authors"></a>
+## Authors <a name = "authors"></a>
 
 - [Sergey September](https://github.com/SergeySeptember)
