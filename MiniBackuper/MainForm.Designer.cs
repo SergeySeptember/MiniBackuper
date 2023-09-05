@@ -206,7 +206,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(267, 237);
+            ClientSize = new Size(267, 233);
             ControlBox = false;
             Controls.Add(labelStartAutorun);
             Controls.Add(checkBoxStart);

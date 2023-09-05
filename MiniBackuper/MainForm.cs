@@ -135,10 +135,13 @@ namespace MiniBackuper
             watcher.EnableRaisingEvents = true;
             watcher.SynchronizingObject = this;
             watcher.NotifyFilter = NotifyFilters.FileName
-                                 | NotifyFilters.LastWrite;
+                     | NotifyFilters.DirectoryName
+                     | NotifyFilters.LastWrite
+                     | NotifyFilters.CreationTime;
             watcher.Changed += new FileSystemEventHandler(WatcherChange);
             watcher.Created += new FileSystemEventHandler(WatcherChange);
             watcher.Deleted += new FileSystemEventHandler(WatcherChange);
+            watcher.Renamed += new RenamedEventHandler(WatcherChange);
         }
 
         private void WatcherChange(object sender, FileSystemEventArgs e)
@@ -151,7 +154,6 @@ namespace MiniBackuper
                 InitializeTimer(_time);
                 _counter = 0;
             }
-
         }
         private void InitializeTimer(int time)
         {
