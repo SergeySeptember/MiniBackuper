@@ -24,7 +24,7 @@ Backuper is a convenient application for automatic backup of your data in the ba
 - Customization of time intervals and change count
 - Option to configure application auto-start
 
-## 🏁 Getting Started <a name = "getting_started"></a>
+## Getting Started <a name = "getting_started"></a>
 
 To run the application, you'll need .NET 7 Desktop Runtime.
 
